@@ -141,35 +141,6 @@ CreditosFrame.Position = UDim2.new(0, 0, 0, 65)
 CreditosFrame.BackgroundTransparency = 1
 CreditosFrame.Visible = false
 
--- AVISO DE ATUALIZAÇÃO
-local UpdateFrame = Instance.new("Frame", Main)
-UpdateFrame.Size = UDim2.new(1, -20, 0, 28)
-UpdateFrame.Position = UDim2.new(0, 10, 1, -30)
-UpdateFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-UpdateFrame.BorderSizePixel = 0
-UpdateFrame.Visible = false
-Instance.new("UICorner", UpdateFrame).CornerRadius = UDim.new(0, 6)
-
-local UpdateLabel = Instance.new("TextLabel", UpdateFrame)
-UpdateLabel.Size = UDim2.new(0, 180, 1, 0)
-UpdateLabel.Position = UDim2.new(0, 8, 0, 0)
-UpdateLabel.BackgroundTransparency = 1
-UpdateLabel.TextColor3 = Color3.fromRGB(255, 200, 0)
-UpdateLabel.Text = "🆕 Nova versão disponível!"
-UpdateLabel.Font = Enum.Font.GothamBold
-UpdateLabel.TextSize = 11
-UpdateLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-local UpdateBtn = Instance.new("TextButton", UpdateFrame)
-UpdateBtn.Size = UDim2.new(0, 170, 1, -4)
-UpdateBtn.Position = UDim2.new(1, -172, 0, 2)
-UpdateBtn.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
-UpdateBtn.TextColor3 = Color3.new(1,1,1)
-UpdateBtn.Text = "📋 COPIAR ATUALIZAÇÃO"
-UpdateBtn.Font = Enum.Font.GothamBold
-UpdateBtn.TextSize = 11
-Instance.new("UICorner", UpdateBtn).CornerRadius = UDim.new(0, 4)
-
 -- EDITOR
 local Editor = Instance.new("TextBox", EditorFrame)
 Editor.Size = UDim2.new(1, 0, 0, 200)
@@ -212,8 +183,8 @@ ClearBtn.MouseButton1Click:Connect(function()
     Editor.Text = ""
 end)
 
--- SCRIPTS PRONTOS (VIA GITHUB)
-local baseURL = "https://raw.githubusercontent.com/mistermpowerrangers-bit/nyx-hub/main/"
+-- SCRIPTS PRONTOS
+local baseURL = "https://raw.githubusercontent.com/wandersonmendonca633-eng/Executor-sombra/main/"
 
 local scriptsProntos = {
     {nome = "🔍 Teleporte Fantasma", arquivo = "teleporte_fantasma.lua"},
@@ -333,7 +304,6 @@ local function verificarKey()
     if KeyInput.Text == "sombra015" then
         KeyFrame.Visible = false
         Main.Visible = true
-        verificarVersao()
         print("✅ Senha correta! Nyx Hub liberado.")
     else
         KeyStatus.Text = "❌ Senha incorreta!"
@@ -385,29 +355,6 @@ end
 MakeDraggable(KeyFrame)
 MakeDraggable(Main)
 MakeDraggable(FloatingBtn)
-
--- VERIFICADOR DE VERSÃO
-local LOADSTRING_COMANDO = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mistermpowerrangers-bit/nyx-hub/main/shadow_nothuma.lua"))()'
-
-local function verificarVersao()
-    pcall(function()
-        local dados = game:HttpGet("https://raw.githubusercontent.com/mistermpowerrangers-bit/nyx-hub/main/versao.txt")
-        if dados then
-            local versaoRemota = dados:match("(%d+%.%d+)")
-            if versaoRemota and tonumber(versaoRemota) > tonumber(VERSAO_ATUAL) then
-                UpdateFrame.Visible = true
-                UpdateLabel.Text = "🆕 Nova versão " .. versaoRemota .. " disponível!"
-                UpdateBtn.MouseButton1Click:Connect(function()
-                    pcall(function() setclipboard(LOADSTRING_COMANDO) end)
-                    UpdateLabel.Text = "✅ Copiado! Execute no seu executor."
-                    task.delay(3, function()
-                        UpdateLabel.Text = "🆕 Nova versão " .. versaoRemota .. " disponível!"
-                    end)
-                end)
-            end
-        end
-    end)
-end
 
 print("🌑 NYX HUB V3.3 CARREGADO!")
 print("🔐 Senha: sombra015")
